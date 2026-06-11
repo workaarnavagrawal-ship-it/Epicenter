@@ -1155,15 +1155,16 @@ body {
         <span class="kv-value">Two-Way Evaluation</span>
       </div>
     </div>
-    <div class="cta-btn-wrap" style="flex-direction: column; gap: 0;">
-      <input type="text" placeholder="Your name" style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none; margin-bottom: -0.5px;">
-      <input type="email" placeholder="Your email" style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none; margin-bottom: -0.5px;">
-      <input type="tel" placeholder="Your phone (WhatsApp)" style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none;">
+    <form id="pilotForm" action="https://formspree.io/f/mrevavlb" method="POST" style="display:flex; flex-direction:column; gap:0;">
+      <input type="text" name="name" placeholder="Your name" required style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none; margin-bottom: -0.5px;">
+      <input type="email" name="email" placeholder="Your email" required style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none; margin-bottom: -0.5px;">
+      <input type="tel" name="phone" placeholder="Your phone (WhatsApp)" style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none;">
       <div style="display: flex; margin-top: 1.2rem;">
-        <button class="cta-btn">BOOK YOUR PILOT CALL</button>
-        <button class="cta-arrow">→</button>
+        <button type="submit" class="cta-btn">BOOK YOUR PILOT CALL</button>
+        <button type="button" class="cta-arrow" onclick="document.getElementById('pilotForm').requestSubmit()">→</button>
       </div>
-    </div>
+      <p id="formMsg" style="display:none; margin-top:1rem; font-size:0.82rem; color:var(--gold); letter-spacing:0.04em;"></p>
+    </form>
   </div>
 </section>
 
@@ -1206,6 +1207,44 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+</script>
+
+<script>
+  const form = document.getElementById('pilotForm');
+  const msg = document.getElementById('formMsg');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'SENDING...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          msg.textContent = "✓ You're in. We'll be in touch shortly.";
+          msg.style.display = 'block';
+          form.reset();
+          btn.textContent = 'SENT';
+        } else {
+          msg.textContent = 'Something went wrong. Please try again.';
+          msg.style.display = 'block';
+          msg.style.color = '#ff6b6b';
+          btn.textContent = 'BOOK YOUR PILOT CALL';
+          btn.disabled = false;
+        }
+      } catch {
+        msg.textContent = 'Something went wrong. Please try again.';
+        msg.style.display = 'block';
+        msg.style.color = '#ff6b6b';
+        btn.textContent = 'BOOK YOUR PILOT CALL';
+        btn.disabled = false;
+      }
+    });
+  }
 </script>
 </body>
 </html>
