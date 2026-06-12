@@ -1165,18 +1165,11 @@ body {
         <span class="kv-key">Format</span>
         <span class="kv-value">Two-Way Evaluation</span>
       </div>
+     <div style="margin-top: 2.5rem; display: flex; align-items: center; gap: 0;">
+      <a href="#pilotForm" onclick="document.getElementById('pilotForm').scrollIntoView({behavior:'smooth'}); return false;">
+        <button class="cta-btn" style="padding: 1rem 2.5rem;">BOOK PILOT CALL</button>
+      </a>
     </div>
-    <form id="pilotForm" action="https://formspree.io/f/mrevavlb" method="POST" style="display:flex; flex-direction:column; gap:0;">
-      <input type="text" name="name" placeholder="Your name" required style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none; margin-bottom: -0.5px;">
-      <input type="email" name="email" placeholder="Your email" required style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none; margin-bottom: -0.5px;">
-      <input type="tel" name="phone" placeholder="Your phone (WhatsApp)" style="width: 100%; padding: 1rem 1.2rem; background: var(--surface-3); border: 0.5px solid var(--divider); color: var(--cream); font-family: var(--sans); font-size: 0.88rem; outline: none;">
-      <div style="display: flex; margin-top: 1.2rem;">
-        <button type="submit" class="cta-btn">BOOK YOUR PILOT CALL</button>
-        <button type="button" class="cta-arrow" onclick="document.getElementById('pilotForm').requestSubmit()">→</button>
-      </div>
-      <p id="formMsg" style="display:none; margin-top:1rem; font-size:0.82rem; color:var(--gold); letter-spacing:0.04em;"></p>
-    </form>
-  </div>
 </section>
 
 <!-- FOOTER -->
